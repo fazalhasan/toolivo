@@ -1,0 +1,56 @@
+---
+import type { ToolItem } from '../data/tools';
+import { 
+  Minimize2, Maximize2, Repeat, ArrowRightLeft, Zap, Smartphone, Crop, Sparkles,
+  FileArchive, Layers, Scissors, FileImage, FileText, FileEdit,
+  AlignLeft, Type, QrCode, Palette, KeyRound, Code2, ArrowUpRight,
+  RotateCw, Lock, Unlock, Hash, Stamp, ArrowUpDown, FilePlus, FileMinus, PenTool, Globe
+} from 'lucide-react';
+
+interface Props {
+  tool: ToolItem;
+}
+
+const { tool } = Astro.props;
+
+const icons = {
+  Minimize2, Maximize2, Repeat, ArrowRightLeft, Zap, Smartphone, Crop, Sparkles,
+  FileArchive, Layers, Scissors, FileImage, FileText, FileEdit,
+  AlignLeft, Type, QrCode, Palette, KeyRound, Code2,
+  RotateCw, Lock, Unlock, Hash, Stamp, ArrowUpDown, FilePlus, FileMinus, PenTool, Globe
+};
+
+const IconComponent = (icons as any)[tool.icon] || ArrowUpRight;
+---
+
+<a href={`/${tool.slug}/`} class="tool-card">
+  <div>
+    <div class="tool-card-header">
+      <div class="tool-card-icon">
+        <IconComponent size={20} />
+      </div>
+
+      <div class="tool-card-chips">
+        {tool.supportedFormats.slice(0, 3).map((fmt) => (
+          <span class="format-chip">{fmt}</span>
+        ))}
+      </div>
+    </div>
+
+    <h3 class="tool-card-title">{tool.name}</h3>
+    <p class="tool-card-desc">{tool.description}</p>
+  </div>
+
+  <div class="tool-card-footer">
+    <div style="display: flex; align-items: center; gap: 0.45rem;">
+      <span style={`width: 6px; height: 6px; border-radius: 50%; background-color: ${tool.category === 'image' ? '#3b82f6' : tool.category === 'pdf' ? '#ef4444' : tool.category === 'text' ? '#10b981' : '#f59e0b'};`}></span>
+      <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 500;">
+        {tool.categoryLabel}
+      </span>
+    </div>
+
+    <span class="tool-card-action">
+      Launch <ArrowUpRight size={14} />
+    </span>
+  </div>
+</a>

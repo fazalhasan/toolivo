@@ -1,0 +1,59 @@
+---
+// blog/index.astro - Resource Center & Guides
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { BLOG_POSTS } from '../../data/blog';
+import { Calendar, Clock, ArrowRight, BookOpen } from 'lucide-react';
+---
+
+<BaseLayout
+  title="Guides, Tutorials & Web Optimization Articles – Toolivo Blog"
+  description="Practical technical guides on image compression, PDF optimization, format conversions, Core Web Vitals, and browser technologies."
+  canonicalPath="/blog/"
+>
+  <div class="container" style="padding-top: 2.5rem; padding-bottom: 5rem;">
+    <Breadcrumbs items={[{ label: 'Blog & Resources' }]} />
+
+    <header style="max-width: 780px; margin: 1.5rem 0 3.5rem;">
+      <span class="status-pill" style="margin-bottom: 0.75rem;">
+        <span class="status-dot"></span>
+        <span>Resource Center</span>
+      </span>
+      <h1 style="margin-bottom: 0.75rem;">Guides &amp; Web Optimization Articles</h1>
+      <p style="font-size: 1.125rem; color: var(--text-secondary); line-height: 1.6;">
+        Expert technical advice and actionable tutorials on image compression, PDF management, Core Web Vitals, and next-generation file formats.
+      </p>
+    </header>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem;">
+      {BLOG_POSTS.map((post) => (
+        <article class="tool-card">
+          <div>
+            <div style="display: flex; gap: 0.75rem; align-items: center; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">
+              <span class="format-chip">{post.category}</span>
+              <span style="display: flex; align-items: center; gap: 0.35rem; font-family: var(--font-mono); font-size: 0.75rem;">
+                <Clock size={13} /> {post.readTime}
+              </span>
+            </div>
+
+            <h2 style="font-size: 1.25rem; margin-bottom: 0.75rem; line-height: 1.35; letter-spacing: -0.02em;">
+              <a href={`/blog/${post.slug}/`} style="color: var(--text-primary);">
+                {post.title}
+              </a>
+            </h2>
+
+            <p style="font-size: 0.875rem; color: var(--text-secondary); line-height: 1.6;">
+              {post.description}
+            </p>
+          </div>
+
+          <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle);">
+            <a href={`/blog/${post.slug}/`} style="color: #ffffff; font-weight: 600; font-size: 0.875rem; display: flex; align-items: center; gap: 0.35rem;">
+              Read Full Article <ArrowRight size={14} />
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,151 @@
+---
+// SEOHead.astro
+import type { ToolFAQ, ToolStep } from '../data/tools';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath?: string;
+  type?: 'website' | 'article';
+  toolSchema?: {
+    name: string;
+    operatingSystem?: string;
+    applicationCategory?: string;
+    steps?: ToolStep[];
+    faqs?: ToolFAQ[];
+  };
+  articleSchema?: {
+    publishDate: string;
+    author: string;
+  };
+}
+
+const {
+  title,
+  description,
+  canonicalPath = '',
+  type = 'website',
+  toolSchema,
+  articleSchema
+} = Astro.props;
+
+const siteUrl = 'https://toolivo.com';
+const canonicalUrl = `${siteUrl}${canonicalPath.startsWith('/') ? canonicalPath : `/${canonicalPath}`}`;
+const ogImage = `${siteUrl}/og-image.png`;
+
+// Build JSON-LD structured data
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  'name': 'Toolivo',
+  'url': siteUrl,
+  'description': 'Toolivo - Free, private, and browser-based online tools for images, PDFs, text, and conversions.',
+  'potentialAction': {
+    '@type': 'SearchAction',
+    'target': `${siteUrl}/?q={search_term_string}`,
+    'query-input': 'required name=search_term_string'
+  }
+};
+
+let breadcrumbSchema = null;
+if (canonicalPath && canonicalPath !== '/') {
+  const parts = canonicalPath.split('/').filter(Boolean);
+  breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      {
+        '@type': 'ListItem',
+        'position': 1,
+        'name': 'Home',
+        'item': siteUrl
+      },
+      ...parts.map((part, idx) => ({
+        '@type': 'ListItem',
+        'position': idx + 2,
+        'name': part.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
+        'item': `${siteUrl}/${parts.slice(0, idx + 1).join('/')}/`
+      }))
+    ]
+  };
+}
+
+let softwareSchema = null;
+if (toolSchema) {
+  softwareSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    'name': toolSchema.name,
+    'operatingSystem': 'All (Web Browser)',
+    'applicationCategory': toolSchema.applicationCategory || 'MultimediaApplication',
+    'offers': {
+      '@type': 'Offer',
+      'price': '0',
+      'priceCurrency': 'USD'
+    }
+  };
+}
+
+let faqSchema = null;
+if (toolSchema?.faqs && toolSchema.faqs.length > 0) {
+  faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    'mainEntity': toolSchema.faqs.map((faq) => ({
+      '@type': 'Question',
+      'name': faq.question,
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': faq.answer
+      }
+    }))
+  };
+}
+
+let howToSchema = null;
+if (toolSchema?.steps && toolSchema.steps.length > 0) {
+  howToSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    'name': `How to use ${toolSchema.name}`,
+    'step': toolSchema.steps.map((st, i) => ({
+      '@type': 'HowToStep',
+      'position': i + 1,
+      'name': st.title,
+      'text': st.description
+    }))
+  };
+}
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:site_name" content="Toolivo" />
+
+<!-- Twitter / X Cards -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={canonicalUrl} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<!-- Robots Meta -->
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+<!-- Structured Data Scripts -->
+<script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+{breadcrumbSchema && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />}
+{softwareSchema && <script type="application/ld+json" set:html={JSON.stringify(softwareSchema)} />}
+{faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
+{howToSchema && <script type="application/ld+json" set:html={JSON.stringify(howToSchema)} />}

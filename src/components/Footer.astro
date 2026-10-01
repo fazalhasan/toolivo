@@ -1,0 +1,88 @@
+---
+// Footer.astro
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo">
+          <div class="logo-icon-box" style="background: #0f172a; width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 7H20" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" />
+              <path d="M12 7V19" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" />
+              <circle cx="19" cy="7" r="2.5" fill="#bbf451" />
+            </svg>
+          </div>
+          <span style="font-size: 1.2rem; font-weight: 800; letter-spacing: -0.03em; color: #0f172a;">Toolivo</span>
+        </a>
+        <p>
+          High-performance, privacy-first online tools for images, PDFs, text, and data conversions. Everything runs locally in your browser memory.
+        </p>
+        <div style="margin-top: 1rem; display: flex; gap: 0.5rem; align-items: center;">
+          <span class="status-pill" style="font-size: 0.75rem; padding: 0.25rem 0.65rem;">
+            <span class="status-dot"></span> All Systems Operational
+          </span>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Image Tools</h4>
+        <ul class="footer-links">
+          <li><a href="/image-compressor/" class="footer-link">Image Compressor</a></li>
+          <li><a href="/image-resizer/" class="footer-link">Image Resizer</a></li>
+          <li><a href="/jpg-to-png/" class="footer-link">JPG to PNG</a></li>
+          <li><a href="/png-to-jpg/" class="footer-link">PNG to JPG</a></li>
+          <li><a href="/webp-converter/" class="footer-link">WebP Converter</a></li>
+          <li><a href="/heic-to-jpg/" class="footer-link">HEIC to JPG</a></li>
+          <li><a href="/background-remover/" class="footer-link">Background Remover</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>PDF & Text</h4>
+        <ul class="footer-links">
+          <li><a href="/pdf-compressor/" class="footer-link">PDF Compressor</a></li>
+          <li><a href="/pdf-merger/" class="footer-link">PDF Merger</a></li>
+          <li><a href="/pdf-splitter/" class="footer-link">PDF Splitter</a></li>
+          <li><a href="/rotate-pdf/" class="footer-link">Rotate PDF</a></li>
+          <li><a href="/protect-pdf/" class="footer-link">Protect PDF</a></li>
+          <li><a href="/sign-pdf/" class="footer-link">Sign PDF</a></li>
+          <li><a href="/organize-pdf/" class="footer-link">Organize PDF</a></li>
+          <li><a href="/word-to-pdf/" class="footer-link">Word to PDF</a></li>
+          <li><a href="/jpg-to-pdf/" class="footer-link">JPG to PDF</a></li>
+          <li><a href="/pdf-to-jpg/" class="footer-link">PDF to JPG</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul class="footer-links">
+          <li><a href="/blog/" class="footer-link">Resource Center</a></li>
+          <li><a href="/about/" class="footer-link">About Toolivo</a></li>
+          <li><a href="/contact/" class="footer-link">Contact Support</a></li>
+          <li><a href="/analytics/" class="footer-link">Analytics Dashboard</a></li>
+          <li><a href="/sitemap-index.xml" class="footer-link">XML Sitemap</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Trust & Legal</h4>
+        <ul class="footer-links">
+          <li><a href="/privacy-policy/" class="footer-link">Privacy Policy</a></li>
+          <li><a href="/terms/" class="footer-link">Terms of Service</a></li>
+          <li><a href="/cookie-policy/" class="footer-link">Cookie Policy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© {year} Toolivo Studio. All operations run locally inside client browser memory.</p>
+      <div style="display: flex; gap: 1.5rem; font-family: var(--font-mono); font-size: 0.75rem;">
+        <span>SANDBOXED • ZERO_LOGS</span>
+        <span>ASTRO_SSG_CORE</span>
+      </div>
+    </div>
+  </div>
+</footer>

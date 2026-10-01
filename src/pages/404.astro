@@ -1,0 +1,35 @@
+---
+// 404.astro - Custom 404 Page
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ToolSearch from '../components/ToolSearch.jsx';
+import { Compass, Home } from 'lucide-react';
+---
+
+<BaseLayout
+  title="Oops! That page doesn't exist – Toolivo"
+  description="The tool or page you requested could not be found. Search our collection of free online tools for images and PDFs."
+  canonicalPath="/404/"
+>
+  <div class="container" style="padding: 5rem 1.5rem; text-align: center; max-width: 650px; margin: 0 auto;">
+    <div style="font-size: 5rem; font-weight: 800; line-height: 1; margin-bottom: 1.5rem;" class="gradient-text">
+      404
+    </div>
+
+    <h1 style="font-size: 2.25rem; margin-bottom: 1rem;">Oops! That page doesn't exist.</h1>
+    <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 2.5rem; line-height: 1.6;">
+      The URL you followed might be broken or the tool may have moved. Use the search bar below to find what you need.
+    </p>
+
+    <!-- Working search box -->
+    <ToolSearch client:load />
+
+    <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap;">
+      <a href="/" class="btn btn-primary btn-lg">
+        <Home size={18} /> Back to Home
+      </a>
+      <a href="/#popular-tools" class="btn btn-secondary btn-lg">
+        <Compass size={18} /> Explore Popular Tools
+      </a>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,272 @@
+---
+// index.astro - Homepage (Designed to match user reference image)
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ToolCard from '../components/ToolCard.astro';
+import ToolSearch from '../components/ToolSearch.jsx';
+import AdSlot from '../components/AdSlot.astro';
+import { TOOLS, getPopularTools, getToolsByCategory } from '../data/tools';
+import { ShieldCheck, Zap, Lock, Cpu, ArrowRight, Sparkles, Check, FileCheck, Layers } from 'lucide-react';
+
+const popularTools = getPopularTools();
+const imageTools = getToolsByCategory('image');
+const pdfTools = getToolsByCategory('pdf');
+const textTools = getToolsByCategory('text');
+const utilityTools = getToolsByCategory('utility');
+---
+
+<BaseLayout
+  title="Free Online Tools for Images, PDFs & More – Toolivo"
+  description="Free online tools to compress, resize, convert and manage images and PDFs. Fast, easy-to-use tools designed for desktop and mobile."
+  canonicalPath="/"
+>
+  <!-- Hero Section (Exact Match to User Reference Screenshot) -->
+  <section class="container" style="padding: 4.5rem 1.5rem 2.5rem; text-align: center;">
+    <!-- Small Category Label above Title (matching reference "Website Design / Copy Writing Tool") -->
+    <div style="margin-bottom: 0.75rem;">
+      <span style="font-size: 0.95rem; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.08em;">
+        Client-Side Utility Platform
+      </span>
+    </div>
+
+    <!-- Main Headline (matching bold typography from reference) -->
+    <h1 style="max-width: 920px; margin: 0 auto 1.25rem; color: #0f172a; font-weight: 800;">
+      Free Online Tools for <br />
+      <span style="color: #0f172a;">Images, PDFs &amp; More</span>
+    </h1>
+
+    <!-- Subtitle (matching reference paragraph style) -->
+    <p style="max-width: 720px; margin: 0 auto 2.25rem; font-size: 1.125rem; color: var(--text-secondary); line-height: 1.6;">
+      Fast, secure, and easy-to-use online tools for converting, compressing, resizing, and managing your files. 
+      Processed directly on your device with zero cloud uploads.
+    </p>
+
+    <!-- Reference Signature Lime Pill Button: "Try for free ->" -->
+    <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 2.75rem;">
+      <a href="#popular-tools" class="btn btn-lime btn-lg">
+        Try for free <ArrowRight size={18} />
+      </a>
+      <a href="#all-tools" class="btn btn-secondary btn-lg">
+        Explore All Tools
+      </a>
+    </div>
+
+    <!-- Interactive Mockup & Floating Pill Showcase (Directly Inspired by Reference Screenshot) -->
+    <div style="max-width: 960px; margin: 0 auto 3rem; background: #ffffff; border: 1.5px solid var(--border-default); border-radius: var(--radius-xl); padding: 2rem; box-shadow: var(--shadow-modal); position: relative; text-align: left;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem; margin-bottom: 1.5rem;">
+        <div style="display: flex; gap: 0.5rem; align-items: center;">
+          <div style="width: 10px; height: 10px; border-radius: 50%; background: #ef4444;"></div>
+          <div style="width: 10px; height: 10px; border-radius: 50%; background: #f59e0b;"></div>
+          <div style="width: 10px; height: 10px; border-radius: 50%; background: #10b981;"></div>
+          <span style="font-size: 0.8125rem; color: var(--text-muted); font-weight: 600; margin-left: 0.5rem;">toolivo.com/image-compressor</span>
+        </div>
+        <span class="status-pill" style="font-size: 0.75rem; padding: 0.2rem 0.65rem;">
+          <span class="status-dot"></span> 100% In-Browser Memory
+        </span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; align-items: center;">
+        <div style="background: #f8fafc; border: 1.5px dashed #cbd5e1; border-radius: var(--radius-md); padding: 1.75rem; text-align: center;">
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--accent-lime); display: flex; align-items: center; justify-content: center; margin: 0 auto 0.75rem;">
+            <FileCheck size={20} color="#0f172a" />
+          </div>
+          <strong style="display: block; font-size: 0.95rem; color: #0f172a; margin-bottom: 0.25rem;">Drop any file to process</strong>
+          <span style="font-size: 0.75rem; color: var(--text-muted);">JPG, PNG, WebP, PDF up to 100 MB</span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+          <div>
+            <label style="font-size: 0.8125rem; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 0.35rem;">Operation Target</label>
+            <div style="display: flex; gap: 0.5rem;">
+              <span class="format-chip" style="background: var(--accent-lime); color: #0f172a; border-color: var(--accent-lime);">COMPRESS</span>
+              <span class="format-chip">CONVERT</span>
+              <span class="format-chip">MERGE</span>
+              <span class="format-chip">RESIZE</span>
+            </div>
+          </div>
+          <div>
+            <label style="font-size: 0.8125rem; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 0.35rem;">Security Protocol</label>
+            <span style="font-size: 0.85rem; color: #15803d; font-weight: 600;">✓ Client-side sandbox. Zero file uploads to servers.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating Dark Action Pill (Exact match to reference bottom pill) -->
+      <div style="display: flex; justify-content: center; margin-top: 1.75rem;">
+        <div class="floating-feature-pill">
+          <span>Processed directly on your device</span>
+          <span class="sparkle">✨</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Working Spotlight Search Bar -->
+    <ToolSearch client:load />
+  </section>
+
+  <!-- Popular Tools Section (Cards matching reference design) -->
+  <section id="popular-tools" class="container" style="padding: 3rem 1.5rem;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <span class="status-pill" style="margin-bottom: 0.5rem;">
+          <span class="status-dot"></span>
+          <span>POPULAR SUITE</span>
+        </span>
+        <h2>Popular Online Tools</h2>
+        <p style="margin: 0; font-size: 0.95rem;">High-precision image compression, PDF merging, and format transcoding.</p>
+      </div>
+      <a href="#all-tools" class="btn btn-secondary btn-sm">
+        All {TOOLS.length} Tools
+      </a>
+    </div>
+
+    <div class="tools-grid">
+      {popularTools.map((tool) => (
+        <ToolCard tool={tool} />
+      ))}
+    </div>
+  </section>
+
+  <!-- Compliant Ad Slot -->
+  <div class="container">
+    <AdSlot slotId="ad-home-mid" />
+  </div>
+
+  <!-- Category Section: Image Tools -->
+  <section id="image-tools" class="container" style="padding: 3rem 1.5rem;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <span class="status-pill" style="margin-bottom: 0.5rem;">
+          <span class="status-dot"></span>
+          <span>IMAGE STUDIO</span>
+        </span>
+        <h2>Image Tools</h2>
+        <p style="margin: 0; font-size: 0.95rem;">Compress JPG/PNG, crop, resize dimensions, and convert to modern WebP.</p>
+      </div>
+      <a href="/category/image/" class="btn btn-outline btn-sm">
+        View image tools <ArrowRight size={14} />
+      </a>
+    </div>
+
+    <div class="tools-grid">
+      {imageTools.map((tool) => (
+        <ToolCard tool={tool} />
+      ))}
+    </div>
+  </section>
+
+  <!-- Category Section: PDF Tools -->
+  <section id="pdf-tools" class="container" style="padding: 3rem 1.5rem;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <span class="status-pill" style="margin-bottom: 0.5rem;">
+          <span class="status-dot"></span>
+          <span>PDF SUITE</span>
+        </span>
+        <h2>PDF Tools</h2>
+        <p style="margin: 0; font-size: 0.95rem;">Combine multiple PDFs, split page ranges, and compress documents without server uploads.</p>
+      </div>
+      <a href="/category/pdf/" class="btn btn-outline btn-sm">
+        View PDF tools <ArrowRight size={14} />
+      </a>
+    </div>
+
+    <div class="tools-grid">
+      {pdfTools.map((tool) => (
+        <ToolCard tool={tool} />
+      ))}
+    </div>
+  </section>
+
+  <!-- Categories: Text & Utilities -->
+  <section id="all-tools" class="container" style="padding: 3rem 1.5rem;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem;">
+      <div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <div>
+            <span class="status-pill" style="margin-bottom: 0.5rem;">
+              <span class="status-dot"></span>
+              <span>WRITING &amp; TEXT</span>
+            </span>
+            <h2>Text Tools</h2>
+          </div>
+          <a href="/category/text/" class="btn btn-outline btn-sm">View all</a>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          {textTools.map((tool) => (
+            <ToolCard tool={tool} />
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <div>
+            <span class="status-pill" style="margin-bottom: 0.5rem;">
+              <span class="status-dot"></span>
+              <span>PRODUCTIVITY</span>
+            </span>
+            <h2>Utility Tools</h2>
+          </div>
+          <a href="/category/utility/" class="btn btn-outline btn-sm">View all</a>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          {utilityTools.map((tool) => (
+            <ToolCard tool={tool} />
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Architecture (Clean Light Cards) -->
+  <section class="container" style="padding: 4.5rem 1.5rem 3rem;">
+    <div style="background: #ffffff; border: 1.5px solid var(--border-default); border-radius: var(--radius-xl); padding: 3rem 2.5rem; box-shadow: var(--shadow-card);">
+      <div style="max-width: 640px; margin-bottom: 2.5rem;">
+        <span class="status-pill" style="margin-bottom: 0.75rem;">
+          <span class="status-dot"></span> 100% Client-Side Privacy
+        </span>
+        <h2>Why In-Browser Architecture Matters</h2>
+        <p style="margin: 0; color: var(--text-secondary); font-size: 1rem;">
+          Traditional file tools upload your confidential tax PDFs, private photos, and business documents to remote cloud servers. Here is how Toolivo keeps you safe.
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
+        <div style="background: #f8fafc; border: 1px solid var(--border-default); border-radius: var(--radius-lg); padding: 1.75rem;">
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--accent-lime); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+            <Cpu size={20} color="#0f172a" />
+          </div>
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.35rem;">Client-Side Execution</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin: 0; line-height: 1.55;">
+            Operations run inside your browser using HTML5 Canvas, WebAssembly, and native JS crypto. No bytes are sent over the network.
+          </p>
+        </div>
+
+        <div style="background: #f8fafc; border: 1px solid var(--border-default); border-radius: var(--radius-lg); padding: 1.75rem;">
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--accent-lime); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+            <ShieldCheck size={20} color="#0f172a" />
+          </div>
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.35rem;">Total Document Privacy</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin: 0; line-height: 1.55;">
+            Your files cannot be viewed, leaked, or scraped to train machine learning models. Closing the browser tab destroys all memory buffers.
+          </p>
+        </div>
+
+        <div style="background: #f8fafc; border: 1px solid var(--border-default); border-radius: var(--radius-lg); padding: 1.75rem;">
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--accent-lime); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+            <Zap size={20} color="#0f172a" />
+          </div>
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.35rem;">Instant Throughput</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin: 0; line-height: 1.55;">
+            Zero upload wait times. High-resolution photos and multi-page PDFs process instantaneously using your device's native CPU and GPU.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Compliant Ad Slot -->
+  <div class="container">
+    <AdSlot slotId="ad-home-bottom" />
+  </div>
+</BaseLayout>

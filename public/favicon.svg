@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <rect width="48" height="48" rx="14" fill="#0f172a" />
+  <!-- Dynamic 'T' with Lime Accent -->
+  <path d="M12 15H36" stroke="#ffffff" stroke-width="5" stroke-linecap="round" />
+  <path d="M24 15V34" stroke="#ffffff" stroke-width="5" stroke-linecap="round" />
+  <!-- Lime Geometric Spark / Arrow Facet -->
+  <circle cx="34" cy="15" r="4.5" fill="#bbf451" />
+  <path d="M28 28L35 35M35 35H29M35 35V29" stroke="#bbf451" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

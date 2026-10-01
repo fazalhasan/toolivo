@@ -1,0 +1,137 @@
+---
+// blog/[slug].astro - Individual Blog Article
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ToolCard from '../../components/ToolCard.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import { BLOG_POSTS, type BlogPost } from '../../data/blog';
+import { getToolBySlug, type ToolItem } from '../../data/tools';
+import { Calendar, Clock, User, ArrowLeft } from 'lucide-react';
+
+export async function getStaticPaths() {
+  return BLOG_POSTS.map((post) => ({
+    params: { slug: post.slug },
+    props: { post }
+  }));
+}
+
+interface Props {
+  post: BlogPost;
+}
+
+const { post } = Astro.props;
+
+const relatedTools = post.relatedToolSlugs
+  .map((s) => getToolBySlug(s))
+  .filter((t): t is ToolItem => Boolean(t));
+---
+
+<BaseLayout
+  title={`${post.title} – Toolivo`}
+  description={post.description}
+  canonicalPath={`/blog/${post.slug}/`}
+  type="article"
+  articleSchema={{
+    publishDate: post.publishDate,
+    author: post.author
+  }}
+>
+  <div class="container" style="padding-top: 2.5rem; padding-bottom: 5rem;">
+    <Breadcrumbs
+      items={[
+        { label: 'Blog', href: '/blog/' },
+        { label: post.title }
+      ]}
+    />
+
+    <article style="max-width: 820px; margin: 2rem auto;">
+        <div style="margin-bottom: 1rem;">
+          <span class="status-pill">
+            <span class="status-dot"></span>
+            <span>{post.category}</span>
+          </span>
+        </div>
+        <h1 style="font-size: clamp(2rem, 3.5vw, 2.75rem); line-height: 1.25; margin-bottom: 1.25rem;">
+          {post.title}
+        </h1>
+        <div style="display: flex; gap: 1.5rem; font-size: 0.85rem; color: var(--text-muted); flex-wrap: wrap;">
+          <span style="display: flex; align-items: center; gap: 0.4rem;">
+            <User size={16} /> {post.author}
+          </span>
+          <span style="display: flex; align-items: center; gap: 0.4rem;">
+            <Calendar size={16} /> {post.publishDate}
+          </span>
+          <span style="display: flex; align-items: center; gap: 0.4rem;">
+            <Clock size={16} /> {post.readTime}
+          </span>
+        </div>
+      </header>
+
+      <AdSlot slotId={`ad-blog-top-${post.slug}`} />
+
+      <!-- Article Main Body -->
+      <div
+        class="blog-content"
+        style="font-size: 1.1rem; line-height: 1.8; color: var(--text-secondary);"
+        set:html={post.content}
+      />
+
+      <AdSlot slotId={`ad-blog-bottom-${post.slug}`} />
+
+      <!-- Related Free Tools -->
+      {relatedTools.length > 0 && (
+        <section style="margin-top: 4rem; padding-top: 3rem; border-top: 1px solid var(--border-subtle);">
+          <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Try Related Free Tools</h2>
+          <p style="margin-bottom: 2rem;">Put these techniques into practice immediately with our free tools:</p>
+          <div class="tools-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
+            {relatedTools.map((t) => (
+              <ToolCard tool={t} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      <div style="margin-top: 3rem;">
+        <a href="/blog/" class="btn btn-outline btn-sm">
+          <ArrowLeft size={16} /> Back to all articles
+        </a>
+      </div>
+    </article>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  .blog-content h2 {
+    font-size: 1.6rem;
+    color: var(--text-primary);
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .blog-content h3 {
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .blog-content p {
+    margin-bottom: 1.5rem;
+  }
+  .blog-content ul, .blog-content ol {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+  }
+  .blog-content li {
+    margin-bottom: 0.5rem;
+  }
+  .blog-content a {
+    color: #818cf8;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .blog-content a:hover {
+    color: #a5b4fc;
+  }
+  .blog-content strong {
+    color: var(--text-primary);
+  }
+</style>

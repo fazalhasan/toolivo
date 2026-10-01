@@ -1,0 +1,48 @@
+---
+// BaseLayout.astro
+import SEOHead from '../components/SEOHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath?: string;
+  toolSchema?: any;
+  articleSchema?: any;
+  type?: 'website' | 'article';
+}
+
+const {
+  title,
+  description,
+  canonicalPath = '',
+  toolSchema,
+  articleSchema,
+  type = 'website'
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <SEOHead
+      title={title}
+      description={description}
+      canonicalPath={canonicalPath}
+      toolSchema={toolSchema}
+      articleSchema={articleSchema}
+      type={type}
+    />
+  </head>
+  <body>
+    <Header currentPath={canonicalPath} />
+    <main id="main-content" style="flex: 1;">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

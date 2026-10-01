@@ -1,0 +1,241 @@
+---
+// [tool].astro - Dynamic Pre-rendered Static Pages for Google SEO
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import ToolCard from '../components/ToolCard.astro';
+import AdSlot from '../components/AdSlot.astro';
+import { TOOLS, getToolBySlug, type ToolItem } from '../data/tools';
+import { ShieldCheck, Zap, Lock, Sparkles, CheckCircle2, ChevronDown } from 'lucide-react';
+
+// Import interactive tool islands
+import ImageCompressor from '../components/tools/ImageCompressor.jsx';
+import ImageResizer from '../components/tools/ImageResizer.jsx';
+import JpgToPng from '../components/tools/JpgToPng.jsx';
+import PngToJpg from '../components/tools/PngToJpg.jsx';
+import WebpConverter from '../components/tools/WebpConverter.jsx';
+import HeicToJpg from '../components/tools/HeicToJpg.jsx';
+import ImageCropper from '../components/tools/ImageCropper.jsx';
+import BackgroundRemover from '../components/tools/BackgroundRemover.jsx';
+import PdfCompressor from '../components/tools/PdfCompressor.jsx';
+import PdfMerger from '../components/tools/PdfMerger.jsx';
+import PdfSplitter from '../components/tools/PdfSplitter.jsx';
+import JpgToPdf from '../components/tools/JpgToPdf.jsx';
+import PdfToJpg from '../components/tools/PdfToJpg.jsx';
+import PdfToWord from '../components/tools/PdfToWord.jsx';
+import QrCodeGenerator from '../components/tools/QrCodeGenerator.jsx';
+import WordCounter from '../components/tools/WordCounter.jsx';
+import CaseConverter from '../components/tools/CaseConverter.jsx';
+import ColorPicker from '../components/tools/ColorPicker.jsx';
+import PasswordGenerator from '../components/tools/PasswordGenerator.jsx';
+import JsonFormatter from '../components/tools/JsonFormatter.jsx';
+import RotatePdf from '../components/tools/RotatePdf.jsx';
+import ProtectPdf from '../components/tools/ProtectPdf.jsx';
+import UnlockPdf from '../components/tools/UnlockPdf.jsx';
+import PdfPageNumbers from '../components/tools/PdfPageNumbers.jsx';
+import PdfWatermark from '../components/tools/PdfWatermark.jsx';
+import OrganizePdf from '../components/tools/OrganizePdf.jsx';
+import ExtractPdfPages from '../components/tools/ExtractPdfPages.jsx';
+import RemovePdfPages from '../components/tools/RemovePdfPages.jsx';
+import SignPdf from '../components/tools/SignPdf.jsx';
+import WordToPdf from '../components/tools/WordToPdf.jsx';
+import HtmlToPdf from '../components/tools/HtmlToPdf.jsx';
+import PdfToText from '../components/tools/PdfToText.jsx';
+import CropPdf from '../components/tools/CropPdf.jsx';
+import FlattenPdf from '../components/tools/FlattenPdf.jsx';
+
+export async function getStaticPaths() {
+  return TOOLS.map((tool) => ({
+    params: { tool: tool.slug },
+    props: { tool }
+  }));
+}
+
+interface Props {
+  tool: ToolItem;
+}
+
+const { tool } = Astro.props;
+
+// Related tools
+const relatedTools = tool.relatedSlugs
+  .map((s) => getToolBySlug(s))
+  .filter((t): t is ToolItem => Boolean(t));
+---
+
+<BaseLayout
+  title={tool.seoTitle}
+  description={tool.metaDescription}
+  canonicalPath={`/${tool.slug}/`}
+  toolSchema={{
+    name: tool.name,
+    steps: tool.howToSteps,
+    faqs: tool.faqs
+  }}
+>
+  <div class="container" style="padding-top: 2rem;">
+    <Breadcrumbs
+      items={[
+        { label: tool.categoryLabel, href: `/category/${tool.category}/` },
+        { label: tool.name }
+      ]}
+    />
+
+    <!-- Header Section -->
+    <header style="text-align: center; max-width: 800px; margin: 1.5rem auto 2.5rem;">
+      <div style="display: flex; justify-content: center; gap: 0.5rem; align-items: center; margin-bottom: 1rem; flex-wrap: wrap;">
+        <span class="status-pill">
+          <span class="status-dot"></span>
+          <span>{tool.categoryLabel}</span>
+        </span>
+        <div style="display: flex; gap: 0.25rem;">
+          {tool.supportedFormats.map((fmt) => (
+            <span class="format-chip">{fmt}</span>
+          ))}
+        </div>
+      </div>
+      <h1 style="margin-bottom: 0.75rem;">{tool.h1}</h1>
+      <p style="font-size: 1.125rem; color: var(--text-secondary); line-height: 1.6; max-width: 680px; margin: 0 auto;">
+        {tool.intro}
+      </p>
+    </header>
+
+    <!-- Interactive Tool Island -->
+    <section aria-label={tool.name} style="max-width: 900px; margin: 0 auto;">
+      {tool.componentName === 'ImageCompressor' && <ImageCompressor client:load />}
+      {tool.componentName === 'ImageResizer' && <ImageResizer client:load />}
+      {tool.componentName === 'JpgToPng' && <JpgToPng client:load />}
+      {tool.componentName === 'PngToJpg' && <PngToJpg client:load />}
+      {tool.componentName === 'WebpConverter' && <WebpConverter client:load />}
+      {tool.componentName === 'HeicToJpg' && <HeicToJpg client:load />}
+      {tool.componentName === 'ImageCropper' && <ImageCropper client:load />}
+      {tool.componentName === 'BackgroundRemover' && <BackgroundRemover client:load />}
+      {tool.componentName === 'PdfCompressor' && <PdfCompressor client:load />}
+      {tool.componentName === 'PdfMerger' && <PdfMerger client:load />}
+      {tool.componentName === 'PdfSplitter' && <PdfSplitter client:load />}
+      {tool.componentName === 'JpgToPdf' && <JpgToPdf client:load />}
+      {tool.componentName === 'PdfToJpg' && <PdfToJpg client:load />}
+      {tool.componentName === 'PdfToWord' && <PdfToWord client:load />}
+      {tool.componentName === 'QrCodeGenerator' && <QrCodeGenerator client:load />}
+      {tool.componentName === 'WordCounter' && <WordCounter client:load />}
+      {tool.componentName === 'CaseConverter' && <CaseConverter client:load />}
+      {tool.componentName === 'ColorPicker' && <ColorPicker client:load />}
+      {tool.componentName === 'PasswordGenerator' && <PasswordGenerator client:load />}
+      {tool.componentName === 'JsonFormatter' && <JsonFormatter client:load />}
+      {tool.componentName === 'RotatePdf' && <RotatePdf client:load />}
+      {tool.componentName === 'ProtectPdf' && <ProtectPdf client:load />}
+      {tool.componentName === 'UnlockPdf' && <UnlockPdf client:load />}
+      {tool.componentName === 'PdfPageNumbers' && <PdfPageNumbers client:load />}
+      {tool.componentName === 'PdfWatermark' && <PdfWatermark client:load />}
+      {tool.componentName === 'OrganizePdf' && <OrganizePdf client:load />}
+      {tool.componentName === 'ExtractPdfPages' && <ExtractPdfPages client:load />}
+      {tool.componentName === 'RemovePdfPages' && <RemovePdfPages client:load />}
+      {tool.componentName === 'SignPdf' && <SignPdf client:load />}
+      {tool.componentName === 'WordToPdf' && <WordToPdf client:load />}
+      {tool.componentName === 'HtmlToPdf' && <HtmlToPdf client:load />}
+      {tool.componentName === 'PdfToText' && <PdfToText client:load />}
+      {tool.componentName === 'CropPdf' && <CropPdf client:load />}
+      {tool.componentName === 'FlattenPdf' && <FlattenPdf client:load />}
+    </section>
+
+    <!-- Compliant Advertisement Slot -->
+    <AdSlot slotId={`ad-${tool.slug}`} />
+
+    <!-- Content Architecture for Google Search -->
+    <article class="tool-content-section">
+      <!-- Section: How to use -->
+      <section class="content-block">
+        <h2>How to Use the {tool.name}</h2>
+        <p>Follow these quick steps to process your files securely in seconds:</p>
+        <div class="steps-list">
+          {tool.howToSteps.map((step, idx) => (
+            <div class="step-card">
+              <div class="step-number">{idx + 1}</div>
+              <h3 class="step-title">{step.title}</h3>
+              <p class="step-desc">{step.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Section: Why use this tool -->
+      <section class="content-block">
+        <h2>Why Choose Toolivo {tool.name}?</h2>
+        <div class="features-grid">
+          {tool.whyUse.map((b) => (
+            <div class="feature-box">
+              <div class="feature-icon">
+                <CheckCircle2 size={22} color="#10b981" />
+              </div>
+              <div>
+                <h3 style="font-size: 1.05rem; margin-bottom: 0.35rem;">{b.title}</h3>
+                <p style="font-size: 0.9rem; color: var(--text-secondary); margin: 0;">{b.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Section: Supported Formats & Technical Limits -->
+      <section class="content-block">
+        <h2>Supported Formats & System Compatibility</h2>
+        <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.5rem;">
+          <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+            <div>
+              <span style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 0.5rem;">
+                Supported File Formats
+              </span>
+              <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                {tool.supportedFormats.map((fmt) => (
+                  <span class="badge badge-primary">{fmt}</span>
+                ))}
+              </div>
+            </div>
+            <div>
+              <span style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 0.5rem;">
+                Maximum File Size
+              </span>
+              <span style="font-size: 1.1rem; font-weight: 700; color: #10b981;">{tool.maxFileSize}</span>
+            </div>
+            <div>
+              <span style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 0.5rem;">
+                Platform Support
+              </span>
+              <span style="font-size: 0.95rem; color: var(--text-secondary);">Windows, Mac, iOS, Android, Linux</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Frequently Asked Questions -->
+      <section class="content-block">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-list">
+          {tool.faqs.map((faq) => (
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                <span>{faq.question}</span>
+                <ChevronDown size={18} color="#818cf8" />
+              </button>
+              <div class="faq-answer">
+                <p>{faq.answer}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Section: Related Tools -->
+      {relatedTools.length > 0 && (
+        <section class="content-block">
+          <h2>Related Utility Tools</h2>
+          <p>Explore complementary tools to complete your digital workflow:</p>
+          <div class="tools-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
+            {relatedTools.map((rel) => (
+              <ToolCard tool={rel} />
+            ))}
+          </div>
+        </section>
+      )}
+    </article>
+  </div>
+</BaseLayout>

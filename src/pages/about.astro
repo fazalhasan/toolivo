@@ -1,0 +1,59 @@
+---
+// about.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { ShieldCheck, Cpu, Heart, CheckCircle2 } from 'lucide-react';
+---
+
+<BaseLayout
+  title="About Toolivo – Free, Fast & Privacy-First Online Utilities"
+  description="Learn about Toolivo mission: building modern, desktop-class online tools that respect user privacy with zero cloud file storage."
+  canonicalPath="/about/"
+>
+  <div class="container" style="padding-top: 2.5rem; padding-bottom: 5rem;">
+    <Breadcrumbs items={[{ label: 'About Us' }]} />
+
+    <article style="max-width: 800px; margin: 2rem auto;">
+      <header style="margin-bottom: 3rem; text-align: center;">
+        <span class="badge badge-primary" style="margin-bottom: 0.75rem;">Our Mission</span>
+        <h1 style="margin-bottom: 1rem;">Rethinking Online File Utilities</h1>
+        <p style="font-size: 1.2rem; color: var(--text-secondary); line-height: 1.6;">
+          Why should you have to upload sensitive bank statements or personal family photos to random cloud servers just to compress or convert them?
+        </p>
+      </header>
+
+      <div class="blog-content" style="font-size: 1.1rem; line-height: 1.8; color: var(--text-secondary);">
+        <h2>Why Toolivo Exists</h2>
+        <p>
+          Most legacy file conversion websites were built 15 years ago. They upload your confidential documents to unknown backend servers, force you through fake download buttons, bombard you with spam popups, and throttle your daily conversions behind aggressive paywalls.
+        </p>
+        <p>
+          We created <strong>Toolivo</strong> with a modern vision: utilizing modern browser APIs (HTML5 Canvas, WebAssembly, and JavaScript cryptography) to perform all file processing <strong>directly on your machine</strong>.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin: 2.5rem 0;">
+          <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.5rem;">
+            <ShieldCheck size={28} color="#10b981" style={{ marginBottom: '0.75rem' }} />
+            <h3 style="font-size: 1.1rem; margin-bottom: 0.35rem;">Zero Cloud Storage</h3>
+            <p style="font-size: 0.9rem; margin: 0;">We don't operate file retention servers. Your files never leave your browser sandbox.</p>
+          </div>
+          <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.5rem;">
+            <Cpu size={28} color="#38bdf8" style={{ marginBottom: '0.75rem' }} />
+            <h3 style="font-size: 1.1rem; margin-bottom: 0.35rem;">Instant Hardware Speed</h3>
+            <p style="font-size: 0.9rem; margin: 0;">Files process at native CPU speed without waiting for slow upload bandwidth.</p>
+          </div>
+          <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.5rem;">
+            <Heart size={28} color="#818cf8" style={{ marginBottom: '0.75rem' }} />
+            <h3 style="font-size: 1.1rem; margin-bottom: 0.35rem;">Free & Honest</h3>
+            <p style="font-size: 0.9rem; margin: 0;">No fake buttons, no trick downloads, and no forced account registration.</p>
+          </div>
+        </div>
+
+        <h2>Our Commitment to Performance</h2>
+        <p>
+          Every page on Toolivo is statically generated with pure semantic HTML, zero bloat, and lightweight interactive islands. This ensures near-instant loading on mobile 4G/5G connections and flawless Core Web Vitals.
+        </p>
+      </div>
+    </article>
+  </div>
+</BaseLayout>

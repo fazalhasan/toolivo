@@ -1,0 +1,29 @@
+{
+  "name": "toolivo",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Toolivo - Free, fast, and privacy-focused online tools for images, PDFs, and conversions. 100% browser-based processing.",
+  "scripts": {
+    "dev": "astro dev --host",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/react": "^4.2.1",
+    "@astrojs/sitemap": "^3.2.1",
+    "astro": "^5.4.2",
+    "canvas-confetti": "^1.9.4",
+    "lucide-react": "^1.16.0",
+    "pdf-lib": "^1.17.1",
+    "qrcode": "^1.5.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/qrcode": "^1.5.5",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4"
+  }
+}

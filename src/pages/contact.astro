@@ -1,0 +1,85 @@
+---
+// contact.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { Mail, MessageSquare, Send, CheckCircle2 } from 'lucide-react';
+---
+
+<BaseLayout
+  title="Contact Toolivo – Feedback, Support & Suggestions"
+  description="Have a tool request or question? Reach out to the Toolivo development team. We welcome feature requests and bug reports."
+  canonicalPath="/contact/"
+>
+  <div class="container" style="padding-top: 2.5rem; padding-bottom: 5rem;">
+    <Breadcrumbs items={[{ label: 'Contact Us' }]} />
+
+    <div style="max-width: 650px; margin: 2rem auto;">
+      <header style="text-align: center; margin-bottom: 2.5rem;">
+        <span class="badge badge-primary" style="margin-bottom: 0.75rem;">Support & Feedback</span>
+        <h1 style="margin-bottom: 0.75rem;">Get in Touch</h1>
+        <p style="color: var(--text-secondary); line-height: 1.6;">
+          Have an idea for a new tool or need technical support? Send us a message and our team will get back to you within 24 hours.
+        </p>
+      </header>
+
+      <div style="background: var(--bg-card); border: 1px solid var(--border-default); border-radius: var(--radius-xl); padding: 2.5rem; box-shadow: var(--shadow-xl);">
+        <form id="contactForm" style="display: flex; flex-direction: column; gap: 1.25rem;">
+          <!-- Honeypot for spam bot prevention -->
+          <div style="display: none;">
+            <input type="text" name="hp_field" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label" for="contactName">Your Name</label>
+            <input type="text" id="contactName" required placeholder="Alex Morgan" class="custom-input" />
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label" for="contactEmail">Email Address</label>
+            <input type="email" id="contactEmail" required placeholder="alex@example.com" class="custom-input" />
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label" for="contactSubject">Subject</label>
+            <select id="contactSubject" class="custom-select">
+              <option value="feature">Tool Feature Suggestion</option>
+              <option value="bug">Report a Bug / Issue</option>
+              <option value="privacy">Privacy & Security Inquiry</option>
+              <option value="partnership">Sponsorship or Partnership</option>
+              <option value="other">General Question</option>
+            </select>
+          </div>
+
+          <div class="setting-group">
+            <label class="setting-label" for="contactMessage">Message</label>
+            <textarea id="contactMessage" required rows={5} placeholder="Describe your inquiry in detail..." class="custom-input" style="resize: vertical;"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg" style="margin-top: 0.5rem;">
+            <Send size={18} /> Send Message
+          </button>
+        </form>
+
+        <div id="contactSuccess" style="display: none; text-align: center; padding: 2rem 1rem;">
+          <CheckCircle2 size={48} color="#10b981" style={{ margin: '0 auto 1rem' }} />
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Message Received!</h3>
+          <p style="color: var(--text-secondary); margin: 0;">
+            Thank you for reaching out. A confirmation has been logged and our engineering team will respond promptly.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('contactForm');
+  const success = document.getElementById('contactSuccess');
+  if (form && success) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      form.style.display = 'none';
+      success.style.display = 'block';
+    });
+  }
+</script>

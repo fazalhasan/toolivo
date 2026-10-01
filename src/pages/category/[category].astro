@@ -1,0 +1,80 @@
+---
+// [category].astro - Category Landing Pages for SEO
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ToolCard from '../../components/ToolCard.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import { TOOLS, getToolsByCategory } from '../../data/tools';
+
+export async function getStaticPaths() {
+  const categories = [
+    {
+      id: 'image',
+      name: 'Image Tools',
+      title: 'Free Online Image Tools – Compress, Resize, Crop & Convert',
+      description: 'Comprehensive suite of free image tools. Compress JPG/PNG/WebP, resize dimensions, remove backgrounds, crop, and convert formats 100% in your browser.',
+      intro: 'Optimize and transform your photographs and graphics for web, social media, and digital publishing. Fast, client-side, and private.'
+    },
+    {
+      id: 'pdf',
+      name: 'PDF Tools',
+      title: 'Free Online PDF Tools – Merge, Split, Compress & Convert',
+      description: 'Free browser-based PDF tools. Merge multiple PDF files, split page ranges, compress file size, and convert images to PDF without uploading confidential documents.',
+      intro: 'Manage contracts, invoices, and reports securely. Reorder pages, isolate chapters, and shrink file sizes for easy email sharing.'
+    },
+    {
+      id: 'text',
+      name: 'Text Tools',
+      title: 'Free Online Text Tools – Word Counter, Case Converter & Formatter',
+      description: 'Free writing and text productivity tools. Live word counter, case conversion, reading time calculators, and text analysis.',
+      intro: 'Helpful utilities for writers, editors, students, and SEO creators. Count words, change casing, and analyze keyword balance.'
+    },
+    {
+      id: 'utility',
+      name: 'Utility Tools',
+      title: 'Free Online Utility Tools – QR Code Generator, Color Picker, Passwords',
+      description: 'Essential online developer and designer utilities. Permanent QR code generator, WCAG color picker, strong password generator, and JSON formatter.',
+      intro: 'Day-to-day web developer and designer utilities running privately in your browser sandbox.'
+    }
+  ];
+
+  return categories.map((cat) => ({
+    params: { category: cat.id },
+    props: {
+      categoryData: cat,
+      tools: getToolsByCategory(cat.id)
+    }
+  }));
+}
+
+const { categoryData, tools } = Astro.props;
+---
+
+<BaseLayout
+  title={`${categoryData.title} – Toolivo`}
+  description={categoryData.description}
+  canonicalPath={`/category/${categoryData.id}/`}
+>
+  <div class="container" style="padding-top: 2.5rem; padding-bottom: 4rem;">
+    <Breadcrumbs items={[{ label: categoryData.name }]} />
+
+    <header style="max-width: 780px; margin: 1.5rem 0 3rem;">
+      <span class="status-pill" style="margin-bottom: 0.75rem;">
+        <span class="status-dot"></span>
+        <span>{categoryData.name} Suite</span>
+      </span>
+      <h1 style="margin-bottom: 0.75rem;">{categoryData.name}</h1>
+      <p style="font-size: 1.125rem; color: var(--text-secondary); line-height: 1.6;">
+        {categoryData.intro}
+      </p>
+    </header>
+
+    <div class="tools-grid">
+      {tools.map((t) => (
+        <ToolCard tool={t} />
+      ))}
+    </div>
+
+    <AdSlot slotId={`ad-cat-${categoryData.id}`} />
+  </div>
+</BaseLayout>

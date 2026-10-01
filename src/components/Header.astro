@@ -1,0 +1,73 @@
+---
+// Header.astro - Reference Style Floating Capsule
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '' } = Astro.props;
+---
+
+<header class="site-header">
+  <div class="header-dock">
+    <!-- Brand / Logo Toolivo -->
+    <a href="/" class="logo" aria-label="Toolivo Home">
+      <div class="logo-icon-box" style="background: #0f172a; width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 7H20" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" />
+          <path d="M12 7V19" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" />
+          <circle cx="19" cy="7" r="2.5" fill="#bbf451" />
+          <path d="M16 16L20 12M20 12H16M20 12V16" stroke="#bbf451" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+      <span style="font-size: 1.25rem; font-weight: 800; letter-spacing: -0.03em; color: #0f172a;">Toolivo</span>
+    </a>
+
+    <!-- Center Navigation -->
+    <nav aria-label="Primary Navigation">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/" class={`nav-link ${currentPath === '/' ? 'active' : ''}`}>Home</a></li>
+        <li><a href="/category/image/" class={`nav-link ${currentPath.includes('/category/image') ? 'active' : ''}`}>Image Tools</a></li>
+        <li><a href="/category/pdf/" class={`nav-link ${currentPath.includes('/category/pdf') ? 'active' : ''}`}>PDF Tools</a></li>
+        <li><a href="/category/text/" class={`nav-link ${currentPath.includes('/category/text') ? 'active' : ''}`}>Text Tools</a></li>
+        <li><a href="/category/utility/" class={`nav-link ${currentPath.includes('/category/utility') ? 'active' : ''}`}>Utilities</a></li>
+        <li><a href="/blog/" class={`nav-link ${currentPath.includes('/blog') ? 'active' : ''}`}>Guides</a></li>
+      </ul>
+    </nav>
+
+    <!-- Right Actions matching Reference: "Login" + Lime "Get Started" -->
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <a href="/#popular-tools" class="nav-link" style="display: none; @media(min-width: 640px){display: block;}">Popular</a>
+      <a href="#popular-tools" class="btn btn-lime btn-sm" id="headerCtaBtn">
+        Get Started
+      </a>
+
+      <!-- Mobile Hamburger -->
+      <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation menu" aria-expanded="false" style="background: transparent; border: none; cursor: pointer; padding: 4px; display: none;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('mobileNavToggle');
+  const nav = document.getElementById('navLinks');
+  if (toggle && nav) {
+    toggle.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('mobile-open');
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  }
+</script>
+
+<style>
+  @media (max-width: 768px) {
+    .mobile-nav-toggle {
+      display: block !important;
+    }
+  }
+</style>

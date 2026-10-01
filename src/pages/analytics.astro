@@ -1,0 +1,17 @@
+---
+// analytics.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import AnalyticsDashboard from '../components/AnalyticsDashboard.jsx';
+---
+
+<BaseLayout
+  title="Analytics Dashboard – Toolivo"
+  description="Real-time, privacy-first analytics dashboard displaying tool usage, downloads, and performance metrics."
+  canonicalPath="/analytics/"
+>
+  <div class="container" style="padding-top: 2.5rem; padding-bottom: 5rem;">
+    <Breadcrumbs items={[{ label: 'Analytics Dashboard' }]} />
+    <AnalyticsDashboard client:load />
+  </div>
+</BaseLayout>
